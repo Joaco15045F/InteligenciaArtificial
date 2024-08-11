@@ -1,6 +1,6 @@
 import pandas as pd
 
-archivo_dataset = pd.read_csv("cars_2010_2020.csv")
+archivo_dataset = pd.read_csv("allseasons.csv")
 print(archivo_dataset)
 
 
