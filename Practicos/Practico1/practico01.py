@@ -1,46 +1,42 @@
-import random
-import matplotlib.pyplot as plt
+estaturas = [
+    155, 157, 159, 160, 162, 164, 166, 168, 170, 172,
+    174, 176, 178, 180, 182, 184, 186, 188, 190, 192,
+    194, 196, 198, 150, 152, 154, 156, 158, 160, 162,
+    164, 166, 168, 170, 172, 174, 176, 178, 180, 182,
+    184, 186, 188, 190, 192, 194, 196, 198, 150, 152,
+    154, 156, 158, 160, 162, 164, 166, 168, 170, 172,
+    174, 176, 178, 180, 182, 184, 186, 188, 190, 192,
+    194, 196, 198, 150, 152, 154, 156, 158, 160, 162,
+    164, 166, 168, 170, 172, 174, 176, 178, 180, 182 
+]
+
+pesos = [
+    55, 57, 59, 60, 62, 64, 66, 68, 70, 72,  
+    74, 76, 78, 80, 82, 84, 86, 88, 90, 92,  
+    94, 96, 98, 52, 54, 56, 58, 60, 62, 64,  
+    66, 68, 70, 72, 74, 76, 78, 80, 82, 84,  
+    86, 88, 90, 92, 94, 96, 98, 100, 54, 56, 
+    58, 60, 62, 64, 66, 68, 70, 72, 74, 76,  
+    78, 80, 82, 84, 86, 88, 90, 92, 94, 96,  
+    98, 100, 102, 56, 58, 60, 62, 64, 66, 68,
+    70, 72, 74, 76, 78, 80, 82, 84, 86, 88   
+]
+
+MejorError = 10000
 
 
-alturas = []
-pesos = []
+for a in range(-1000, 1001):
+    for b in range(-1000, 1001):
+        errorTotal = 0
+        for i in range(len(estaturas)):
+            Y = a * estaturas[i] + b
+            errorAbs = abs(pesos[i] - Y)
+            errorTotal += errorAbs
+        if errorTotal < MejorError:
+            MejorError = errorTotal
+            mejorA = a
+            mejorB = b
 
-for _ in range(100):
-    altura = random.randint(150, 200)
-    if altura < 160:
-        peso = random.randint(50, 65)
-    elif altura < 180:
-        peso = random.randint(60, 80)
-    else:
-        peso = random.randint(75, 100)
-
-    alturas.append(altura)
-    pesos.append(peso)
-
-
-n = len(alturas)
-sum_x = sum(alturas)
-sum_y = sum(pesos)
-
-sum_xy = 0
-for i in range(n):
-    sum_xy += alturas[i] * pesos[i]
-
-sum_x2 = sum(altura ** 2 for altura in alturas)
-
-#calculando m y b
-m = (n * sum_xy - sum_x * sum_y) / (n * sum_x2 - sum_x ** 2)
-b = (sum_y - m * sum_x) / n
-
-
-regresion_lineal = [m * altura + b for altura in alturas]
-
-
-#grafica
-plt.scatter(alturas, pesos, label='Datos originales', color='blue')
-plt.plot(alturas, regresion_lineal, label=f'Regresión lineal: y={m:.2f}x + {b:.2f}', color='red')
-plt.xlabel('Altura (cm)')
-plt.ylabel('Peso (kg)')
-plt.title('Ajuste de Curva: Regresión Lineal')
-plt.legend()
-plt.show()
+print(f"El menor error es: {MejorError}")
+print(f"El valor mas optimo para a es: {mejorA}")
+print(f"El valor mas optimo para b es: {mejorB}")
